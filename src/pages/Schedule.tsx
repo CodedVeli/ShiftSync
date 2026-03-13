@@ -91,12 +91,12 @@ export default function Schedule() {
     const weekEnd = endOfWeek(now, { weekStartsOn: 0 });
 
     return shifts
-      .filter(shift => {
+      .filter((shift: Shift) => {
         const shiftDate = new Date(shift.startTime);
         return shiftDate >= weekStart && shiftDate <= weekEnd &&
-               shift.assignments?.some(a => a.staffId === staffId);
+               shift.assignments?.some((a) => a.staffId === staffId);
       })
-      .reduce((total, shift) => {
+      .reduce((total: number, shift: Shift) => {
         return total + differenceInHours(new Date(shift.endTime), new Date(shift.startTime));
       }, 0);
   };

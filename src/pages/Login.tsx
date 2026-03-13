@@ -68,7 +68,6 @@ export default function Login() {
         </form>
 
         <div className="mt-4 text-center text-sm text-gray-600">
-          <p>Test accounts will be available after seed data</p>
         </div>
       </div>
     </div>
