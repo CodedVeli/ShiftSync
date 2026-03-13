@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AuthProvider from './components/auth/AuthProvider';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Schedule from './pages/Schedule';
@@ -26,13 +27,13 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/schedule" element={<Schedule />} />
-            <Route path="/availability" element={<Availability />} />
-            <Route path="/swap-requests" element={<SwapRequests />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/notifications" element={<Notifications />} />
-            <Route path="/audit-log" element={<AuditLog />} />
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/schedule" element={<ProtectedRoute><Schedule /></ProtectedRoute>} />
+            <Route path="/availability" element={<ProtectedRoute><Availability /></ProtectedRoute>} />
+            <Route path="/swap-requests" element={<ProtectedRoute><SwapRequests /></ProtectedRoute>} />
+            <Route path="/analytics" element={<ProtectedRoute requiredRole="MANAGER"><Analytics /></ProtectedRoute>} />
+            <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
+            <Route path="/audit-log" element={<ProtectedRoute requiredRole="MANAGER"><AuditLog /></ProtectedRoute>} />
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
           </Routes>
         </BrowserRouter>
